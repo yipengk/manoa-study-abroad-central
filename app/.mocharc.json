@@ -1,0 +1,9 @@
+{
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportDir": "mocha-report",
+    "reportFilename": "unit-test-report",
+    "html": true,
+    "json": true
+  }
+}

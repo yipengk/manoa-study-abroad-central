@@ -1,0 +1,27 @@
+{
+  "name": "manoa-study-abroad-central",
+  "version": "1.0.0",
+  "description": "About Manoa Study Abroad Central: https://manoa-study-abroad-central.github.io",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manoa-study-abroad-central/manoa-study-abroad-central.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manoa-study-abroad-central/manoa-study-abroad-central/issues"
+  },
+  "homepage": "https://github.com/manoa-study-abroad-central/manoa-study-abroad-central#readme",
+  "devDependencies": {
+    "testcafe": "^3.7.2",
+    "testcafe-reporter-html": "^1.4.6"
+  }
+}

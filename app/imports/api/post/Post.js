@@ -12,8 +12,8 @@ class PostsCollection {
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
-      title: String,
-      description: String,
+      title: { type: String, optional: false, min: 1, max: 20, regEx: /^[^<>]+$/ },
+      description: { type: String, optional: false, min: 2, max: 2000, regEx: /^[^<>]+$/ },
       owner: String,
       program: {
         type: String,
@@ -24,7 +24,7 @@ class PostsCollection {
         type: Boolean,
         defaultValue: false,
       },
-      name: String,
+      name: { type: String, optional: false, min: 1, max: 10, regEx: /^[^<>]+$/ },
       countryRegion: {
         type: String,
         // eslint-disable-next-line max-len

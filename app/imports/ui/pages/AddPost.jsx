@@ -4,28 +4,11 @@ import { AutoForm, ErrorsField, LongTextField, SelectField, SubmitField, TextFie
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import SimpleSchema from 'simpl-schema';
 import { Posts } from '../../api/post/Post';
 
 // Component for adding new posts to the database
-const formSchema = new SimpleSchema({
-  title: String,
-  description: String,
-  program: {
-    type: String,
-    allowedValues: ['Manoa International Exchange (MIX)', 'Study Abroad Center', 'National Student Exchange (NSE)'],
-    defaultValue: 'Manoa International Exchange (MIX)',
-  },
-  name: String,
-  countryRegion: {
-    type: String,
-    // eslint-disable-next-line max-len
-    allowedValues: ['Australia', 'Canada', 'China', 'Czech Republic', 'Denmark', 'Fiji', 'Finland', 'France', 'French Polynesia', 'Germany', 'Hong Kong', 'Indonesia', 'Italy', 'Japan', 'Korea', 'Malaysia', 'Morocco', 'Netherlands', 'New Zealand', 'Norway', 'Philippines', 'Singapore', 'Spain', 'Sweden', 'Switzerland', 'Taiwan', 'Thailand', 'United Kingdom'],
-    defaultValue: 'Australia',
-  },
-});
 
-const bridge = new SimpleSchema2Bridge(formSchema);
+const bridge = new SimpleSchema2Bridge(Posts.schema);
 
 /* Renders the AddStuff page for adding a document. */
 const AddPost = () => {
@@ -37,11 +20,11 @@ const AddPost = () => {
       { title, program, description, name, owner, countryRegion },
       (error) => {
         if (error) {
-          swal('Error', error.message, 'error');
-        } else {
-          swal('Success', 'Post added successfully!', 'success');
-          formRef.reset();
+          return;
         }
+        swal('Success', 'Post added successfully!', 'success');
+        formRef.reset();
+
       },
     );
   };
@@ -53,16 +36,16 @@ const AddPost = () => {
       <Row className="justify-content-center">
         <Col xs={5}>
           <Col className="text-center"><h2>Add Post</h2></Col>
-          <AutoForm ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+          <AutoForm showInlineError validate="onSubmit" ref={ref => { fRef = ref; }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Card>
               <Card.Body>
-                <TextField id="addpost-title" name="title" placeholder="Enter title" />
-                <TextField id="addpost-name" name="name" placeholder="Enter name" />
+                <TextField id="addpost-title" name="title" placeholder="Enter title" showInlineError />
+                <TextField id="addpost-name" name="name" placeholder="Enter name" showInlineError />
                 <SelectField id="addpost-program" name="program" />
                 <SelectField id="addpost-countryRegion" name="countryRegion" />
-                <LongTextField id="addpost-description" name="description" placeholder="Enter description" />
-                <SubmitField id="addpost-submit" value="Submit" />
+                <LongTextField id="addpost-description" name="description" placeholder="Enter description" showInlineError />
                 <ErrorsField />
+                <SubmitField id="addpost-submit" value="Submit" />
               </Card.Body>
             </Card>
           </AutoForm>
